@@ -240,7 +240,6 @@ export const parseViewMore = ($: CheerioAPI): PartialSourceManga[] => {
         // let chapNum = 0
         // if (chapNumRegex && chapNumRegex[1]) chapNum = Number(chapNumRegex[1])
 
-        const subtitle = 'Chapter N/A'
 
         if (!id || !title || collectedIds.includes(id)) continue
         
@@ -248,7 +247,7 @@ export const parseViewMore = ($: CheerioAPI): PartialSourceManga[] => {
             image: image,
             title: decodeHTMLEntity(title),
             mangaId: id,
-            subtitle: decodeHTMLEntity(subtitle)
+            subtitle: undefined
         }))
         collectedIds.push(id)
     }
