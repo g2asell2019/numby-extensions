@@ -74,7 +74,7 @@ export const parseMangaDetails = ($: CheerioAPI, mangaId: string): SourceManga =
     })
 }
 
-export const parseChapters = ($: CheerioAPI, mangaId: string): Chapter[] => {
+export const parseChapters = async ($: CheerioAPI, mangaId: string): Promise<Chapter[]> => {
     console.log(`Parsing chapters for mangaId: ${mangaId}`)
     const chapters: Chapter[] = []
     let sortingIndex = 0
@@ -118,7 +118,7 @@ export const parseChapters = ($: CheerioAPI, mangaId: string): Chapter[] => {
     return chapters.map(chapter => {
         chapter.sortingIndex += chapters.length
         return App.createChapter(chapter)
-    })
+    });
 }
 export const parseChapterDetails = async ($: CheerioAPI, mangaId: string, chapterId: string): Promise<ChapterDetails> => {
     console.log(`Parsing chapter details for mangaId: ${mangaId} chapterId: ${chapterId}`)

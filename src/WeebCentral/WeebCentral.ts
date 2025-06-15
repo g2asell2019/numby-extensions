@@ -93,7 +93,7 @@ export class WeebCentral implements SearchResultsProviding, MangaProviding, Chap
         const response = await this.requestManager.schedule(request, 1)
         this.CloudFlareError(response.status)
         const $ = cheerio.load(response.data as string)
-        return parseChapters($, mangaId)
+        return await parseChapters($, mangaId)
     }
 
     async getChapterDetails(mangaId: string, chapterId: string): Promise<ChapterDetails> {
