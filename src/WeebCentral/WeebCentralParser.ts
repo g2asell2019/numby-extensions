@@ -11,6 +11,7 @@ import {
 
 import { decode as decodeHTMLEntity } from 'html-entities'
 import { CheerioAPI } from 'cheerio'
+const dayjs = require('dayjs')
 
 export const parseMangaDetails = ($: CheerioAPI, mangaId: string): SourceManga => {
     console.log(` Parsing manga details for mangaId: ${mangaId} `)
@@ -208,8 +209,8 @@ export const parseHomeSections = ($: CheerioAPI, sectionCallback: (section: Home
         const title: string = $('a > div:nth-child(1) > div', manga)?.text().trim() ?? ''
         const IDRegex = $('a',manga).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
         const id = IDRegex && IDRegex[1] ? IDRegex[1] : ''
-        const subtitle: string = $('time').first().text().trim() ?? ''
-
+        const subtitle: string = displayTime($('time', manga).first().text().trim()) ?? ''
+        console.log(`Time: ${subtitle} for mangaId: ${id}`)
         if (!id || !title) continue
         updateSection_Array.push(App.createPartialSourceManga({
             image: image,
@@ -323,4 +324,26 @@ export const isLastPageSearch = ($: CheerioAPI): boolean => {
 export const formatTagSearch = (tags: Tag[]): string => {
     if (!tags || tags.length === 0) return ''
     return `${tags?.map((x: Tag) => "included_tag=" + x.id + "&").join('')}`;
+}
+export const displayTime = (createdAt: string): string => {
+    const now = dayjs();
+    const createdTime = dayjs(createdAt);
+    const minutes = now.diff(createdTime, 'minute');
+    const hours = now.diff(createdTime, 'hour');
+    const days = now.diff(createdTime, 'day');
+    const currentYear = now.year();
+    const commentYear = createdTime.year();
+    if (minutes < 1) {
+        return 'just now';
+    } else if (hours < 1) {
+        return `${minutes}m`;
+    } else if (days < 1) {
+        return `${hours}h`;
+    } else if (days <= 2) {
+        return `${days}d`;
+    } else if (commentYear < currentYear) {
+        return createdTime.format('MMM D, YYYY');
+    } else {
+        return createdTime.format('MMM D');
+    }
 }
