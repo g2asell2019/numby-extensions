@@ -15545,7 +15545,7 @@ var _Sources = (() => {
       })
     });
   };
-  var parseChapters = ($2, mangaId) => {
+  var parseChapters = async ($2, mangaId) => {
     console.log(`Parsing chapters for mangaId: ${mangaId}`);
     const chapters = [];
     let sortingIndex = 0;
@@ -15683,13 +15683,12 @@ var _Sources = (() => {
       const title = $2("a > article > div > div > div", obj).text()?.trim() ?? "";
       const IDRegex = $2("a", obj).attr("href")?.replace(/\/$/, "").match("/series/(.*?)/");
       const id = IDRegex && IDRegex[1] ? IDRegex[1] : "";
-      const subtitle = "Chapter N/A";
       if (!id || !title || collectedIds.includes(id)) continue;
       manga.push(App.createPartialSourceManga({
         image,
         title: decode(title),
         mangaId: id,
-        subtitle: decode(subtitle)
+        subtitle: void 0
       }));
       collectedIds.push(id);
     }
@@ -15795,7 +15794,7 @@ var _Sources = (() => {
       const response = await this.requestManager.schedule(request, 1);
       this.CloudFlareError(response.status);
       const $2 = load(response.data);
-      return parseChapters($2, mangaId);
+      return await parseChapters($2, mangaId);
     }
     async getChapterDetails(mangaId, chapterId) {
       const request = App.createRequest({
