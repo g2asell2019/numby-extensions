@@ -12,18 +12,18 @@
   "author": "Numby",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.7",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-modules-newline": "^0.0.6",
-    "typescript": "^4.9.5"
+    "@tsconfig/recommended": "1.0.7",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "7.32.0",
+    "eslint-plugin-modules-newline": "0.0.6",
+    "typescript": "4.9.5"
   },
   "dependencies": {
-    "@paperback/toolchain": "^0.8.7",
-    "@paperback/types": "^0.8.7",
-    "cheerio": "^1.0.0",
-    "dayjs": "^1.11.13",
-    "html-entities": "^2.5.2"
+    "@paperback/toolchain": "0.8.7",
+    "@paperback/types": "0.8.7",
+    "cheerio": "1.0.0",
+    "dayjs": "1.11.13",
+    "html-entities": "2.5.2"
   }
 }
