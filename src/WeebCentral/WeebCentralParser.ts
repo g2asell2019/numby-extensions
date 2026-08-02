@@ -184,7 +184,7 @@ export const parseHomeSections = ($: CheerioAPI, sectionCallback: (section: Home
 
     // New
     const newSection_Array: PartialSourceManga[] = []
-    for (const manga of $('section:nth-child(3) > div > a').toArray()) {
+    for (const manga of $('article > section > div > span.tooltip.tooltip-bottom > a').toArray()) {
         const title: string = $(manga).text().trim() ?? ''
         const IDRegex = $(manga).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
         const id = IDRegex && IDRegex[1] ? IDRegex[1] : ''
