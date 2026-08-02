@@ -15465,7 +15465,7 @@ var _Sources = (() => {
     mostViewedSection.items = mostViewedSection_Array;
     sectionCallback(mostViewedSection);
     const newSection_Array = [];
-    for (const manga of $2("article > section > div > span.tooltip.tooltip-bottom > a").toArray()) {
+    for (const manga of $2("body > main > section > section > section:nth-child(4) > div > a").toArray()) {
       const title = $2(manga).text().trim() ?? "";
       const IDRegex = $2(manga).attr("href")?.replace(/\/$/, "").match("/series/(.*?)/");
       const id = IDRegex && IDRegex[1] ? IDRegex[1] : "";
