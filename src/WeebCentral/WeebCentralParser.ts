@@ -165,7 +165,7 @@ export const parseHomeSections = ($: CheerioAPI, sectionCallback: (section: Home
     // Most Viewed
     const mostViewedSection_Array: PartialSourceManga[] = []
     for (const manga of $('body > main > section > section > article.flex').toArray()) {
-        const title: string = $("div:nth-child(2) > a > div.truncate",manga).text()?.trim() ?? ''
+        const title: string = $("div:nth-child(2) > a > div.truncate", manga).text()?.trim() ?? ''
         const IDRegex = $("div > a", manga).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
         const id = IDRegex && IDRegex[1] ? IDRegex[1] : ''
         const image: string = $('img', manga).first().attr('src') ?? ''
@@ -184,7 +184,7 @@ export const parseHomeSections = ($: CheerioAPI, sectionCallback: (section: Home
 
     // New
     const newSection_Array: PartialSourceManga[] = []
-    for (const manga of $('article > section > div > span.tooltip.tooltip-bottom > a').toArray()) {
+    for (const manga of $('body > main > section > section > section:nth-child(4) > div > a').toArray()) {
         const title: string = $(manga).text().trim() ?? ''
         const IDRegex = $(manga).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
         const id = IDRegex && IDRegex[1] ? IDRegex[1] : ''
@@ -207,7 +207,7 @@ export const parseHomeSections = ($: CheerioAPI, sectionCallback: (section: Home
     for (const manga of $('body > main > section > section > section > article').toArray()) {
         const image: string = $('img', manga).first().attr('src') ?? ''
         const title: string = $('a > div:nth-child(1) > div', manga)?.text().trim() ?? ''
-        const IDRegex = $('a',manga).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
+        const IDRegex = $('a', manga).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
         const id = IDRegex && IDRegex[1] ? IDRegex[1] : ''
         const subtitle: string = displayTime($('time', manga).first().text().trim()) ?? ''
         console.log(`Time: ${subtitle} for mangaId: ${id}`)
@@ -233,7 +233,7 @@ export const parseViewMore = ($: CheerioAPI): PartialSourceManga[] => {
     for (const obj of $('body > article > section:nth-child(1)').toArray()) {
         const image: string = $('img', obj).first().attr('src') ?? ''
         const title: string = $('a > article > div > div > div', obj).text()?.trim() ?? ''
-        const IDRegex = $("a",obj).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
+        const IDRegex = $("a", obj).attr('href')?.replace(/\/$/, '').match("/series/(.*?)/")
         const id = IDRegex && IDRegex[1] ? IDRegex[1] : ''
         // const getChapter = $('div.novel-stats > strong', obj).text().trim()
 
@@ -243,7 +243,7 @@ export const parseViewMore = ($: CheerioAPI): PartialSourceManga[] => {
 
 
         if (!id || !title || collectedIds.includes(id)) continue
-        
+
         manga.push(App.createPartialSourceManga({
             image: image,
             title: decodeHTMLEntity(title),
@@ -317,7 +317,7 @@ export const isLastPageSearch = ($: CheerioAPI): boolean => {
     let isLast = false
 
     const pages = $('button[hx-get*="/search/data"]').first().text() ?? ''
-    
+
     isLast = pages ? false : true
     return isLast
 }
