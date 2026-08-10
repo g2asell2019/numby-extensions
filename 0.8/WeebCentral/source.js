@@ -15383,17 +15383,12 @@ var _Sources = (() => {
       const chapterId = IDRegex && IDRegex[1] ? IDRegex[1] : "";
       if (!chapterId) continue;
       const date = new Date(String($2("time.text-datetime", chapterElement).attr("datetime")));
-      const chapNumRegex = title.match("Chapter (.*?)$") || title.match("Episode (.*?)$");
-      let chapNum = 0;
-      if (chapNumRegex && chapNumRegex[1]) {
-        let chapRegex = chapNumRegex[1];
-        if (chapRegex.includes("-")) chapRegex = chapRegex.replace("-", ".");
-        chapNum = Number(chapRegex);
-      }
+      const numberMatch = title.replace("-", ".").match(/(\d+(?:\.\d+)?)/);
+      const chapNum = numberMatch ? Number(numberMatch[1]) : 0;
       console.log(`Found chapter: ${title} with id: ${chapterId} and chapNum: ${chapNum}`);
       chapters.push({
         id: chapterId,
-        name: `Chapter ${chapNum}`,
+        name: title,
         langCode: "\u{1F1EC}\u{1F1E7}",
         chapNum,
         time: date,
@@ -15589,7 +15584,7 @@ var _Sources = (() => {
   // src/WeebCentral/WeebCentral.ts
   var WC_DOMAIN = "https://weebcentral.com";
   var WeebCentralInfo = {
-    version: "2.0.11",
+    version: "2.0.12",
     name: "WeebCentral",
     icon: "ic.png",
     author: "Numby",
