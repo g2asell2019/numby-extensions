@@ -90,18 +90,14 @@ export const parseChapters = async ($: CheerioAPI, mangaId: string): Promise<Cha
         if (!chapterId) continue
 
         const date = new Date(String($('time.text-datetime', chapterElement).attr('datetime')))
-        const chapNumRegex = title.match("Chapter (.*?)$") || title.match("Episode (.*?)$")
 
-        let chapNum = 0
-        if (chapNumRegex && chapNumRegex[1]) {
-            let chapRegex = chapNumRegex[1]
-            if (chapRegex.includes('-')) chapRegex = chapRegex.replace('-', '.')
-            chapNum = Number(chapRegex)
-        }
+        const numberMatch = title.replace('-', '.').match(/(\d+(?:\.\d+)?)/)
+        const chapNum = numberMatch ? Number(numberMatch[1]) : 0
+
         console.log(`Found chapter: ${title} with id: ${chapterId} and chapNum: ${chapNum}`)
         chapters.push({
             id: chapterId,
-            name: `Chapter ${chapNum}`,
+            name: title,
             langCode: '🇬🇧',
             chapNum: chapNum,
             time: date,

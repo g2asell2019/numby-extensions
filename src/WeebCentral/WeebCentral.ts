@@ -36,7 +36,7 @@ import {
 const WC_DOMAIN = 'https://weebcentral.com'
 
 export const WeebCentralInfo: SourceInfo = {
-    version: '2.0.11',
+    version: '2.0.12',
     name: 'WeebCentral',
     icon: 'ic.png',
     author: 'Numby',
